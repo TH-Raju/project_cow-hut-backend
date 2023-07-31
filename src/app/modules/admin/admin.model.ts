@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
-import { AdminModel, IAdmin } from './admin.interface';
+import { IAdmin, UserModel } from './admin.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
 
-const AdminSchema = new Schema<IAdmin, AdminModel>(
+const AdminSchema = new Schema<IAdmin, UserModel>(
   {
     phoneNumber: {
       type: String,
@@ -18,6 +18,7 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
     password: {
       type: String,
       required: true,
+      select: false
     },
     name: {
       type: {
@@ -40,11 +41,33 @@ const AdminSchema = new Schema<IAdmin, AdminModel>(
       type: String,
       required: true,
     },
+    needsPasswordChange: {
+      type: Boolean,
+      default: true
+    }
   },
   {
     timestamps: true,
   }
 );
+
+
+AdminSchema.statics.isUserExist = async function (
+  phoneNumber: string
+): Promise<Pick<IAdmin, 'phoneNumber' | 'password' | 'needsPasswordChange'> | null> {
+  return await Admin.findOne(
+    { phoneNumber },
+    { phoneNumber: 1, password: 1, needsPasswordChange: 1 }
+  );
+}
+
+AdminSchema.statics.isPasswordMatched = async function (
+  givenPassword: string, savePassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(givenPassword, savePassword)
+
+}
+
 
 AdminSchema.pre('save', async function (next) {
 
@@ -55,4 +78,8 @@ AdminSchema.pre('save', async function (next) {
   next()
 })
 
-export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema);
+
+
+export const Admin = model<IAdmin, UserModel>('Admin', AdminSchema);
+
+
