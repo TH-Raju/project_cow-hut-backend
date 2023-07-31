@@ -7,6 +7,8 @@ import { IPaginationOptions } from "../../../interfaces/pagination";
 import { IUser, IUserFilters } from "./user.interface";
 import { User } from "./user.model";
 import { generateUserId, userSearchableFields } from "./user.utils";
+import bcrypt from 'bcrypt';
+
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
 
