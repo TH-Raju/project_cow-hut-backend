@@ -10,10 +10,6 @@ const createAdmin = async (admin: IAdmin): Promise<IAdmin | null> => {
     admin.password = config.default_pass as string
   }
 
-  //hash password
-  admin.password = await bcrypt.hash(admin.password, Number(config.bcrypt_salt_round))
-
-
   const createdAdmin = await Admin.create(admin)
   if (!createdAdmin) {
     throw new ApiError(400, 'Failed to create Admin...')

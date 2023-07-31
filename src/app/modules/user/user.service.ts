@@ -7,7 +7,6 @@ import { IPaginationOptions } from "../../../interfaces/pagination";
 import { IUser, IUserFilters } from "./user.interface";
 import { User } from "./user.model";
 import { generateUserId, userSearchableFields } from "./user.utils";
-import bcrypt from 'bcrypt';
 
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
@@ -19,10 +18,6 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
     if (!user.password) {
         user.password = config.default_pass as string
     }
-
-    //hash password
-    user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round))
-
 
     const createdUser = await User.create(user)
     if (!createdUser) {
