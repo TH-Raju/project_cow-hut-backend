@@ -20,6 +20,10 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
         user.password = config.default_pass as string
     }
 
+    //hash password
+    user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round))
+
+
     const createdUser = await User.create(user)
     if (!createdUser) {
         throw new ApiError(400, 'Failed to create user...')
