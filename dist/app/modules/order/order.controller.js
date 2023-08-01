@@ -63,7 +63,18 @@ const getAllOrders = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         data: result
     });
 }));
+const getSingleOrder = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield order_service_1.OrderService.getSingleOrder(id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: 200,
+        message: 'Order Find Successfully',
+        data: result,
+    });
+}));
 exports.OrderController = {
     createOrder,
-    getAllOrders
+    getAllOrders,
+    getSingleOrder
 };

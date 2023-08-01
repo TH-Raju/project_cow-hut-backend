@@ -70,7 +70,7 @@ userSchema.statics.isUserExist = async function (
 ): Promise<Pick<IUser, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'> | null> {
     return await User.findOne(
         { phoneNumber },
-        { phoneNumber: 1, password: 1, needsPasswordChange: 1 }
+        { phoneNumber: 1, role: 1, password: 1, needsPasswordChange: 1 }
     );
 }
 

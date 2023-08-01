@@ -6,7 +6,7 @@ var Label;
 (function (Label) {
     Label["ForSale"] = "for sale";
     Label["SoldOut"] = "sold out";
-})(Label = exports.Label || (exports.Label = {}));
+})(Label || (exports.Label = Label = {}));
 exports.OrderSchema = new mongoose_1.Schema({
     cow: {
         type: mongoose_1.Schema.Types.ObjectId,

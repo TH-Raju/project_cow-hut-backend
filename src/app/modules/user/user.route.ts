@@ -5,11 +5,9 @@ import auth from '../../middlewares/auth'
 const router = express.Router()
 
 
-router.patch('/:id', UserController.updateUser)
-router.get('/:id', UserController.getSingleUser)
-router.delete('/:id', UserController.deleteUser)
-router.get('/',
-    auth(UserRole.Admin),
-    UserController.getAllUser)
+router.patch('/:id', auth(UserRole.Admin), UserController.updateUser)
+router.get('/:id', auth(UserRole.Admin), UserController.getSingleUser)
+router.delete('/:id', auth(UserRole.Admin), UserController.deleteUser)
+router.get('/', auth(UserRole.Admin), UserController.getAllUser)
 
 export const UserRoutes = router

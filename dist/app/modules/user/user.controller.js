@@ -20,6 +20,7 @@ const pick_1 = __importDefault(require("../../../share/pick"));
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const sendResponse_1 = __importDefault(require("../../../share/sendResponse"));
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log(req.cookies, 'cookie');
     try {
         const user = req.body;
         const result = yield user_service_1.UserService.createUser(user);

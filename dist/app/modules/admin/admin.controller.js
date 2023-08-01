@@ -9,22 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderService = void 0;
-const order_model_1 = require("./order.model");
-const createOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
-    const createdOrder = yield order_model_1.Order.create(order);
-    return createdOrder;
+exports.AdminController = void 0;
+const admin_service_1 = require("./admin.service");
+const createAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const admin = req.body;
+        const result = yield admin_service_1.AdminService.createAdmin(admin);
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: 'Admin Created Successfully',
+            data: result
+        });
+    }
+    catch (error) {
+        next(error);
+    }
 });
-const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.find({});
-    return result;
-});
-const getSingleOrder = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.findById(id);
-    return result;
-});
-exports.OrderService = {
-    createOrder,
-    getAllOrders,
-    getSingleOrder
+exports.AdminController = {
+    createAdmin,
 };

@@ -8,23 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderService = void 0;
-const order_model_1 = require("./order.model");
-const createOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
-    const createdOrder = yield order_model_1.Order.create(order);
-    return createdOrder;
+exports.AdminService = void 0;
+const config_1 = __importDefault(require("../../../config"));
+const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
+const admin_model_1 = require("./admin.model");
+const createAdmin = (admin) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!admin.password) {
+        admin.password = config_1.default.default_pass;
+    }
+    const createdAdmin = yield admin_model_1.Admin.create(admin);
+    if (!createdAdmin) {
+        throw new ApiError_1.default(400, 'Failed to create Admin...');
+    }
+    return createdAdmin;
 });
-const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.find({});
-    return result;
-});
-const getSingleOrder = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.findById(id);
-    return result;
-});
-exports.OrderService = {
-    createOrder,
-    getAllOrders,
-    getSingleOrder
+exports.AdminService = {
+    createAdmin,
 };

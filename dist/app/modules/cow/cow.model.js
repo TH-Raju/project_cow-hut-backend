@@ -7,13 +7,13 @@ var Label;
 (function (Label) {
     Label["ForSale"] = "for sale";
     Label["SoldOut"] = "sold out";
-})(Label = exports.Label || (exports.Label = {}));
+})(Label || (exports.Label = Label = {}));
 var Category;
 (function (Category) {
     Category["Dairy"] = "Dairy";
     Category["Beef"] = "Beef";
     Category["DualPurpose"] = "Dual Purpose";
-})(Category = exports.Category || (exports.Category = {}));
+})(Category || (exports.Category = Category = {}));
 exports.CowSchema = new mongoose_1.Schema({
     id: {
         type: String,

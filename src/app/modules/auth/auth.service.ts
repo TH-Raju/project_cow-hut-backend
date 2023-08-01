@@ -83,7 +83,7 @@ const loginAdmin = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
 
     const refreshToken = jwtHelpers.createToken({ adminNumber, role }, config.jwt.refresh_secret as Secret, config.jwt.refresh_expires_in as string)
 
-
+    console.log(accessToken, isUserExist);
 
 
     return {

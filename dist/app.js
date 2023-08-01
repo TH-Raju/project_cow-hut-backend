@@ -10,13 +10,19 @@ const user_route_1 = require("./app/modules/user/user.route");
 const cow_route_1 = require("./app/modules/cow/cow.route");
 const user_auth_route_1 = require("./app/modules/user/user.auth.route");
 const order_route_1 = require("./app/modules/order/order.route");
+const admin_route_1 = require("./app/modules/admin/admin.route");
+const auth_route_1 = require("./app/modules/auth/auth.route");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use((0, cors_1.default)());
+app.use((0, cookie_parser_1.default)());
 //parser
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 //Application Routes
+app.use('/api/v1/admins/', admin_route_1.AdminRoutes);
+app.use('/api/v1/auth/', auth_route_1.AuthRoutes);
 app.use('/api/v1/users/', user_route_1.UserRoutes);
 app.use('/api/v1/auth/', user_auth_route_1.AuthUserRoutes);
 app.use('/api/v1/cows/', cow_route_1.CowRoutes);

@@ -9,22 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderService = void 0;
-const order_model_1 = require("./order.model");
-const createOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
-    const createdOrder = yield order_model_1.Order.create(order);
-    return createdOrder;
+const validateRequest = (schema) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield schema.parseAsync({
+            body: req.body,
+            query: req.query,
+            params: req.params,
+            cookies: req.cookies,
+        });
+        return next();
+    }
+    catch (error) {
+        next(error);
+    }
 });
-const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.find({});
-    return result;
-});
-const getSingleOrder = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield order_model_1.Order.findById(id);
-    return result;
-});
-exports.OrderService = {
-    createOrder,
-    getAllOrders,
-    getSingleOrder
-};
+exports.default = validateRequest;
