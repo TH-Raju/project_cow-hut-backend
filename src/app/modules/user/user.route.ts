@@ -9,7 +9,7 @@ router.patch('/:id', UserController.updateUser)
 router.get('/:id', UserController.getSingleUser)
 router.delete('/:id', UserController.deleteUser)
 router.get('/',
-    // auth(UserRole.Admin),
+    auth(UserRole.Admin),
     UserController.getAllUser)
 
 export const UserRoutes = router
