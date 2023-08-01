@@ -54,7 +54,7 @@ const AdminSchema = new Schema<IAdmin, UserModel>(
 
 AdminSchema.statics.isUserExist = async function (
   phoneNumber: string
-): Promise<Pick<IAdmin, 'phoneNumber' | 'password' | 'needsPasswordChange'> | null> {
+): Promise<Pick<IAdmin, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'> | null> {
   return await Admin.findOne(
     { phoneNumber },
     { phoneNumber: 1, password: 1, needsPasswordChange: 1 }
