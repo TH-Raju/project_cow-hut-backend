@@ -8,6 +8,8 @@ import { IUser } from "./user.interface";
 import sendResponse from "../../../share/sendResponse";
 
 const createUser: RequestHandler = async (req, res, next) => {
+
+    // console.log(req.cookies, 'cookie');
     try {
         const user = req.body
         const result = await UserService.createUser(user)

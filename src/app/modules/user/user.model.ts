@@ -14,6 +14,11 @@ const userSchema = new Schema<IUser>({
         enum: Object.values(UserRole),
         required: true
     },
+    phoneNumber: {
+        type: String,
+        unique: true,
+        required: true,
+    },
     password: {
         type: String,
         required: true,

@@ -7,12 +7,14 @@ import { AuthUserRoutes } from './app/modules/user/user.auth.route';
 import { OrderRoutes } from './app/modules/order/order.route';
 import { AdminRoutes } from './app/modules/admin/admin.route';
 import { AuthRoutes } from './app/modules/auth/auth.route';
+import cookieParser from 'cookie-parser'
 
 const app: Application = express()
 const port = 3000
 
 
 app.use(cors())
+app.use(cookieParser())
 
 //parser
 app.use(express.json())

@@ -4,6 +4,7 @@ import { AdminService } from './admin.service';
 
 
 const createAdmin: RequestHandler = async (req, res, next) => {
+
   try {
     const admin = req.body
     const result = await AdminService.createAdmin(admin)
