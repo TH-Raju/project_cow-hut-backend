@@ -80,7 +80,7 @@ const userSchema = new mongoose_1.Schema({
 });
 userSchema.statics.isUserExist = function (phoneNumber) {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield exports.User.findOne({ phoneNumber }, { phoneNumber: 1, password: 1, needsPasswordChange: 1 });
+        return yield exports.User.findOne({ phoneNumber }, { phoneNumber: 1, role: 1, password: 1, needsPasswordChange: 1 });
     });
 };
 userSchema.statics.isPasswordMatched = function (givenPassword, savePassword) {

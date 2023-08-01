@@ -30,7 +30,7 @@ const auth = (...requiredRoles: string[]) =>
 
 
             req.user = verifiedUser;
-            console.log(verifiedUser, requiredRoles);
+            // console.log(verifiedUser, requiredRoles);
 
             //role diye guard korar jnno
             if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {

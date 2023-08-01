@@ -62,7 +62,7 @@ const AdminSchema = new mongoose_1.Schema({
 });
 AdminSchema.statics.isAdminExist = function (phoneNumber) {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield exports.Admin.findOne({ phoneNumber }, { phoneNumber: 1, password: 1, needsPasswordChange: 1 });
+        return yield exports.Admin.findOne({ phoneNumber }, { phoneNumber: 1, role: 1, password: 1, needsPasswordChange: 1 });
     });
 };
 AdminSchema.statics.isPasswordMatched = function (givenPassword, savePassword) {

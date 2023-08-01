@@ -71,6 +71,7 @@ const loginAdmin = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { phoneNumber: adminNumber, role, needsPasswordChange } = isUserExist;
     const accessToken = jwtHelpers_1.jwtHelpers.createToken({ adminNumber, role }, config_1.default.jwt.secret, config_1.default.jwt.expires_in);
     const refreshToken = jwtHelpers_1.jwtHelpers.createToken({ adminNumber, role }, config_1.default.jwt.refresh_secret, config_1.default.jwt.refresh_expires_in);
+    console.log(accessToken, isUserExist);
     return {
         accessToken,
         refreshToken,
