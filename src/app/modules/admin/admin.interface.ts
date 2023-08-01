@@ -21,8 +21,8 @@ export type IAdmin = {
 //   isPasswordMatched(givenPassword: string, savePassword: string): Promise<boolean>;
 // }
 
-export type UserModel = {
-  isUserExist(phoneNumber: string): Promise<Pick<IAdmin, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'>>
+export type AdminModel = {
+  isAdminExist(phoneNumber: string): Promise<Pick<IAdmin, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'>>
 
   isPasswordMatched(givenPassword: string, savePassword: string): Promise<boolean>;
 } & Model<IAdmin>;

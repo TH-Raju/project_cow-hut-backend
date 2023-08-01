@@ -25,6 +25,7 @@ const createUser: RequestHandler = async (req, res, next) => {
 }
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
+
     const filters = pick(req.query, userFilterableFields);
 
     const paginationOptions = pick(req.query, paginationFields);

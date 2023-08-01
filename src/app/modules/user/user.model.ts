@@ -3,7 +3,7 @@ import { IUser, UserModel, UserRole } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUser, UserModel>({
     id: {
         type: String,
         required: true,
@@ -52,6 +52,10 @@ const userSchema = new Schema<IUser>({
     cow: {
         type: Schema.Types.ObjectId,
         ref: 'Cow'
+    },
+    needsPasswordChange: {
+        type: Boolean,
+        default: true
     }
 }, {
     //for createdAt and updatedAt
@@ -60,6 +64,23 @@ const userSchema = new Schema<IUser>({
         virtuals: true,
     }
 });
+
+userSchema.statics.isUserExist = async function (
+    phoneNumber: string
+): Promise<Pick<IUser, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'> | null> {
+    return await User.findOne(
+        { phoneNumber },
+        { phoneNumber: 1, password: 1, needsPasswordChange: 1 }
+    );
+}
+
+userSchema.statics.isPasswordMatched = async function (
+    givenPassword: string, savePassword: string
+): Promise<boolean> {
+    return await bcrypt.compare(givenPassword, savePassword)
+
+}
+
 
 userSchema.pre('save', async function (next) {
 

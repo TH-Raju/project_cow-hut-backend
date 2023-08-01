@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
-import { IAdmin, UserModel } from './admin.interface';
+import { IAdmin, AdminModel } from './admin.interface';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
 
-const AdminSchema = new Schema<IAdmin, UserModel>(
+const AdminSchema = new Schema<IAdmin, AdminModel>(
   {
     phoneNumber: {
       type: String,
@@ -52,7 +52,7 @@ const AdminSchema = new Schema<IAdmin, UserModel>(
 );
 
 
-AdminSchema.statics.isUserExist = async function (
+AdminSchema.statics.isAdminExist = async function (
   phoneNumber: string
 ): Promise<Pick<IAdmin, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'> | null> {
   return await Admin.findOne(
@@ -80,6 +80,6 @@ AdminSchema.pre('save', async function (next) {
 
 
 
-export const Admin = model<IAdmin, UserModel>('Admin', AdminSchema);
+export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema);
 
 

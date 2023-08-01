@@ -1,10 +1,8 @@
 import { RequestHandler } from 'express';
-
 import { AdminService } from './admin.service';
 
 
 const createAdmin: RequestHandler = async (req, res, next) => {
-
 
   try {
     const admin = req.body

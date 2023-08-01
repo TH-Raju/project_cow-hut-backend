@@ -4,6 +4,7 @@ import { ICow } from "../cow/cow.interface";
 export enum UserRole {
     Seller = 'seller',
     Buyer = 'buyer',
+    Admin = 'admin'
 }
 export type UserName = {
     firstName: string;
@@ -22,12 +23,23 @@ export type IUser = {
     budget: number;
     income: number;
     cow?: Types.ObjectId | ICow;
+    needsPasswordChange: true | false;
 }
 
-export type UserModel = Model<IUser, Record<string, unknown>>;
+export type UserModel = {
+    isUserExist(phoneNumber: string): Promise<Pick<IUser, 'phoneNumber' | 'role' | 'password' | 'needsPasswordChange'>>
+
+    isPasswordMatched(givenPassword: string, savePassword: string): Promise<boolean>;
+} & Model<IUser>;
+
+
+// export type UserModel = Model<IUser, Record<string, unknown>>;
 
 export type IUserFilters = {
     searchTerm?: string;
+    phoneNumber?: string;
+    role?: string;
+
 };
 
 
