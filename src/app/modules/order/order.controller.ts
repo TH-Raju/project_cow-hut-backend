@@ -56,7 +56,21 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getSingleOrder = catchAsync(async (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    const result = await OrderService.getSingleOrder(id);
+
+    sendResponse<IOrder>(res, {
+        success: true,
+        statusCode: 200,
+        message: 'Order Find Successfully',
+        data: result,
+    });
+});
+
 export const OrderController = {
     createOrder,
-    getAllOrders
+    getAllOrders,
+    getSingleOrder
 };

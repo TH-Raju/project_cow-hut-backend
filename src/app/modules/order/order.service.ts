@@ -10,8 +10,14 @@ const getAllOrders = async () => {
     const result = await Order.find({})
     return result
 }
+const getSingleOrder = async (id: string): Promise<IOrder | null> => {
+    const result = await Order.findById(id)
+    return result;
+};
+
 
 export const OrderService = {
     createOrder,
-    getAllOrders
+    getAllOrders,
+    getSingleOrder
 }
