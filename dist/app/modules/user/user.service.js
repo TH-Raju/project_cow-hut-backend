@@ -29,6 +29,7 @@ const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const user_model_1 = require("./user.model");
 const user_utils_1 = require("./user.utils");
+const admin_model_1 = require("../admin/admin.model");
 const createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     //auto generated incremental id
     const id = yield (0, user_utils_1.generateUserId)();
@@ -87,9 +88,29 @@ const getSingleUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findById(id);
     return result;
 });
+const getMyProfile = (phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
+    if (phoneNumber === undefined) {
+        const result = yield admin_model_1.Admin.findOne({ adminNumber: phoneNumber });
+        return result;
+    }
+    else {
+        const result = yield user_model_1.User.findOne({ phoneNumber: phoneNumber });
+        return result;
+    }
+});
 const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findByIdAndDelete(id);
     return result;
+});
+const updateProfile = (phoneNumber, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    if (phoneNumber === undefined) {
+        const result = yield admin_model_1.Admin.findOneAndUpdate({ adminNumber: phoneNumber }, payload, { new: true });
+        return result;
+    }
+    else {
+        const result = yield user_model_1.User.findOneAndUpdate({ phoneNumber: phoneNumber }, payload, { new: true });
+        return result;
+    }
 });
 const updateUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.findOneAndUpdate({ _id: id }, payload, {
@@ -100,7 +121,9 @@ const updateUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* 
 exports.UserService = {
     createUser,
     getAllUser,
+    getMyProfile,
     getSingleUser,
     deleteUser,
-    updateUser
+    updateUser,
+    updateProfile
 };

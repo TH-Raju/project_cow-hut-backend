@@ -30,7 +30,7 @@
 
 
 
-## Cow Routes -
+### Cows 
 
 * https://cow-hut-auth-livid.vercel.app/api/v1/cows (POST)
 * https://cow-hut-auth-livid.vercel.app/api/v1/cows (GET)
@@ -40,7 +40,7 @@
 
 
 
- ## Order Routes
+ ### Orders
 
 * https://cow-hut-auth-livid.vercel.app/api/v1/orders (POST)
 * https://cow-hut-auth-livid.vercel.app/api/v1/orders (GET)
@@ -48,7 +48,7 @@
  
 
 
- - Bonus Part
+ ## Bonus Part -
 
 ### Admin
 
