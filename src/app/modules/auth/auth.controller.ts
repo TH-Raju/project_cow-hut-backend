@@ -57,6 +57,9 @@ const refreshUserToken = catchAsync(async (req: Request, res: Response) => {
         data: result
     })
 })
+
+
+
 const loginAdmin = catchAsync(async (req: Request, res: Response) => {
     const { ...loginData } = req.body;
     const result = await AuthService.loginAdmin(loginData);

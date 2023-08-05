@@ -13,8 +13,8 @@ router.post(
 router.post(
   '/login',
   validateRequest(AuthValidation.loginZodSchema), AuthController.loginAdmin
-
 );
+
 
 
 export const AdminRoutes = router;

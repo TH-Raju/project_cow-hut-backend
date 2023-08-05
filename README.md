@@ -1,9 +1,10 @@
-# Application Routes : 
+
 
 ## Live Link : https://cow-hut-auth-livid.vercel.app/
 
 
-## User Routes -
+# Application Routes : 
+
 
 ### Auth (User)
 
@@ -41,14 +42,23 @@
 
  ## Order Routes
 
-* https://cow-hut-auth-livid.vercel.app/api/v1/orders (GET)
 * https://cow-hut-auth-livid.vercel.app/api/v1/orders (POST)
+* https://cow-hut-auth-livid.vercel.app/api/v1/orders (GET)
+
+ 
 
 
+ - Bonus Part
 
 ### Admin
 
 * https://cow-hut-auth-livid.vercel.app/api/v1/admins/create-admin (POST)
+
+
+### My Profile
+
+* https://cow-hut-auth-livid.vercel.app/api/v1/users/my-profile (GET)
+* https://cow-hut-auth-livid.vercel.app/api/v1/users/my-profile (PATCH)
 
 
 

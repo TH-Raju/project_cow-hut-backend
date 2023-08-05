@@ -4,7 +4,8 @@ import { UserRole } from './user.interface'
 import auth from '../../middlewares/auth'
 const router = express.Router()
 
-
+router.get('/my-profile', UserController.getMyProfile)
+router.patch('/my-profile', UserController.updateProfile)
 router.patch('/:id', auth(UserRole.Admin), UserController.updateUser)
 router.get('/:id', auth(UserRole.Admin), UserController.getSingleUser)
 router.delete('/:id', auth(UserRole.Admin), UserController.deleteUser)

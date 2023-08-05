@@ -7,6 +7,8 @@ import { IPaginationOptions } from "../../../interfaces/pagination";
 import { IUser, IUserFilters } from "./user.interface";
 import { User } from "./user.model";
 import { generateUserId, userSearchableFields } from "./user.utils";
+import { Admin } from "../admin/admin.model";
+import { IAdmin } from "../admin/admin.interface";
 
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
@@ -88,11 +90,38 @@ const getSingleUser = async (id: string): Promise<IUser | null> => {
 };
 
 
+const getMyProfile = async (phoneNumber: string) => {
+
+    if (phoneNumber === undefined) {
+        const result = await Admin.findOne({ adminNumber: phoneNumber })
+        return result
+    } else {
+        const result = await User.findOne({ phoneNumber: phoneNumber })
+        return result
+    }
+
+};
+
+
+
+
 const deleteUser = async (id: string): Promise<IUser | null> => {
     const result = await User.findByIdAndDelete(id)
     return result;
 };
 
+const updateProfile = async (
+    phoneNumber: string,
+    payload: Partial<IAdmin | IUser>
+) => {
+    if (phoneNumber === undefined) {
+        const result = await Admin.findOneAndUpdate({ adminNumber: phoneNumber }, payload, { new: true })
+        return result
+    } else {
+        const result = await User.findOneAndUpdate({ phoneNumber: phoneNumber }, payload, { new: true })
+        return result
+    }
+};
 const updateUser = async (
     id: string,
     payload: Partial<IUser>
@@ -108,7 +137,9 @@ const updateUser = async (
 export const UserService = {
     createUser,
     getAllUser,
+    getMyProfile,
     getSingleUser,
     deleteUser,
-    updateUser
+    updateUser,
+    updateProfile
 }

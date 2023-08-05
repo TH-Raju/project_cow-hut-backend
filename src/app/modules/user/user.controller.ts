@@ -6,6 +6,12 @@ import pick from "../../../share/pick";
 import { paginationFields } from "../../../helpers/paginationHelper";
 import { IUser } from "./user.interface";
 import sendResponse from "../../../share/sendResponse";
+import ApiError from "../../../errors/ApiError";
+import httpStatus from "http-status";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
+import config from "../../../config";
+import { Secret } from "jsonwebtoken";
+import { IAdmin } from "../admin/admin.interface";
 
 const createUser: RequestHandler = async (req, res, next) => {
 
@@ -56,6 +62,35 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const token = req.headers.authorization
+    if (!token) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+    }
+
+    let verifiedUser = null;
+
+    //verify token
+    verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret)
+
+
+    req.user = verifiedUser;
+    // console.log(verifiedUser);
+
+
+    const phoneNumber = verifiedUser.userNumber;
+    // console.log(phoneNumber);
+
+    const result = await UserService.getMyProfile(phoneNumber);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: 'Profile Find Successfully',
+        data: result,
+    });
+});
+
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
     const id = req.params.id;
 
@@ -65,6 +100,35 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
         success: true,
         statusCode: 200,
         message: 'User Deleted Successfully',
+        data: result,
+    });
+});
+
+const updateProfile = catchAsync(async (req: Request, res: Response) => {
+
+    const updatedData = req.body;
+    const token = req.headers.authorization
+    if (!token) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+    }
+
+    let verifiedUser = null;
+
+    //verify token
+    verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret)
+    req.user = verifiedUser;
+    // console.log(verifiedUser);
+
+    const phoneNumber = verifiedUser.userNumber;
+    // console.log(phoneNumber);
+
+
+    const result = await UserService.updateProfile(phoneNumber, updatedData);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: 'Profile updated Successfully',
         data: result,
     });
 });
@@ -87,6 +151,8 @@ export const UserController = {
     createUser,
     getAllUser,
     getSingleUser,
+    getMyProfile,
     deleteUser,
-    updateUser
+    updateUser,
+    updateProfile
 };
