@@ -78,12 +78,10 @@ userSchema.statics.isPasswordMatched = async function (
     givenPassword: string, savePassword: string
 ): Promise<boolean> {
     return await bcrypt.compare(givenPassword, savePassword)
-
 }
 
 
 userSchema.pre('save', async function (next) {
-
     //hashing password
     const user = this
     user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round))
